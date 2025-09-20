@@ -4,7 +4,7 @@
 // 3. 국적
 // 4. 자기소개
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -14,17 +14,31 @@ const Register = () => {
     bio: "",
   });
 
+  const countRef = useRef(0);
+  const inputRef = useRef();
+
   const onChange = (e) => {
     // console.log(e.target.name, e.target.value);
+    countRef.current++;
+    console.log(countRef.current);
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
   };
 
+  // 우선 사용자가 이름 입력을 제대로 했는지 체크
+  const onSubmit = () => {
+    if (input.name === "") {
+      // 이름을 입력하는 DOM 요소 포커스 (선택된 상태로 만들기)
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <div>
       <input
+        ref={inputRef}
         name="name"
         value={input.name}
         onChange={onChange}
@@ -61,6 +75,7 @@ const Register = () => {
           onChange={onChange}
         ></textarea>
       </div>
+      <button onClick={onSubmit}>제출</button>
     </div>
   );
 };
