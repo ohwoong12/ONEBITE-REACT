@@ -6,6 +6,8 @@
 
 [Notion 강의 내용 정리 URL](https://www.notion.so/268217c0599a80dfacf3c68f832ba323?source=copy_link)
 
+---
+
 ### 사용 언어와 프레임워크
 
 JavaScript  
