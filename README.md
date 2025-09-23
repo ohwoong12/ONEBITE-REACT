@@ -6,8 +6,12 @@
 
 [Notion 강의 내용 필기](https://www.notion.so/268217c0599a80dfacf3c68f832ba323?source=copy_link{:target="_blank"})
 
-## 사용 언어와 프레임워크
+## 사용한 에디터
+
+[Visual Studio Code](https://code.visualstudio.com/)
+
+## 사용 언어와 라이브러리 및 프레임워크
 
 JavaScript  
-React.js  
-Node.js
+[React](https://ko.react.dev/)  
+[Node.js](https://nodejs.org/ko/)
