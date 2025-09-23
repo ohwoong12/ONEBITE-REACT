@@ -6,10 +6,15 @@ const ToDoItem = ({
   content,
   date,
   onUpdate,
+  onDelete,
 }) => {
   // 체크박스 상태 변화를 위한 이벤트 핸들러
   const onChangeCheckBox = () => {
     onUpdate(id);
+  };
+
+  const onClickDeleteButton = () => {
+    onDelete(id);
   };
 
   return (
@@ -25,7 +30,9 @@ const ToDoItem = ({
       <div className="date">
         {new Date(date).toLocaleDateString()}
       </div>
-      <div className="delete">임시 삭제</div>
+      <div className="delete">
+        <button onClick={onClickDeleteButton}>삭제</button>
+      </div>
     </div>
   );
 };

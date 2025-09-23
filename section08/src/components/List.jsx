@@ -2,7 +2,7 @@ import "./List.css";
 import ToDoItem from "./ToDoItem";
 import { useState } from "react";
 
-const List = ({ todos, onUpdate }) => {
+const List = ({ todos, onUpdate, onDelete }) => {
   const [search, setSearch] = useState("");
 
   // 매개변수로 이벤트 객체를 받아서 setSearch를 호출
@@ -40,6 +40,7 @@ const List = ({ todos, onUpdate }) => {
               key={todo.id}
               {...todo}
               onUpdate={onUpdate}
+              onDelete={onDelete}
             />
           );
         })}

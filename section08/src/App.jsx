@@ -69,11 +69,23 @@ function App() {
     );
   };
 
+  const onDelete = (targetId) => {
+    // filter 메서드: 기존 배열에서 조건에 맞는 요소만 걸러내서 새로운 배열을 만듬
+    // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
+    // 즉 삭제 대상이 아닌 요소들만 필터링한다는 뜻
+    // 삭제되어야 하는 아이템만 제외한 새로운 배열을 만들어서 인수로 전달함 => 결과적으로 해당 아이템이 todos state에서 제거가 됨
+    setTodos(todos.filter((todo) => todo.id !== targetId));
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} />
+      <List
+        todos={todos}
+        onUpdate={onUpdate}
+        onDelete={onDelete}
+      />
     </div>
   );
 }
