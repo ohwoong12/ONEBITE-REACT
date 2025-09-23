@@ -2,8 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import List from "./components/List";
-import { useState, useRef } from "react";
-import Exam from "./components/Exam";
+import { useRef, useReducer } from "react";
 
 // 모조 데이터 선언
 const mockData = [
@@ -27,67 +26,68 @@ const mockData = [
   },
 ];
 
+// 실제로 처리하게 될 함수
+// 액션 객체의 값에 따라 변화된 state의 값을 return
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE":
+      // action.data: dispatch 함수를 호출하면서 전달한 새로운 ToDo 아이템
+      return [action.data, ...state];
+    case "UPDATE":
+      return state.map((item) =>
+        item.id === action.targetId
+          ? { ...item, isDone: !item.isDone }
+          : item,
+      );
+    case "DELETE":
+      return state.filter(
+        (item) => item.id != action.targetId,
+      );
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const [todos, setTodos] = useState(mockData);
+  const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
   const onCreate = (content) => {
-    const newTodo = {
-      id: idRef.current++,
-      isDone: false,
-      content: content,
-      date: new Date().getTime(),
-    };
-
-    setTodos([newTodo, ...todos]);
+    dispatch({
+      type: "CREATE",
+      // 새롭게 생성할 ToDo 아이템을 객체로 삽입
+      data: {
+        id: idRef.current++,
+        isDone: false,
+        content: content,
+        date: new Date().getTime(),
+      },
+    });
   };
 
   const onUpdate = (targetId) => {
-    // todos state의 값들 중에
-    // targetId와 일치하는 id를 갖는 ToDo 아이템의 isDone 프로퍼티를 변경
-    // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소의 데이터만 딱 바꾼 새로운 배열만 전달
-
-    setTodos(
-      todos.map(
-        (todo) =>
-          todo.id === targetId
-            ? { ...todo, isDone: !todo.isDone }
-            : todo,
-        // {
-        //   if (todo.id === targetId) {
-        //     return {
-        //       // 일치한다면 스프레드 연산자로 기존 ToDo 아이템 갖고옴
-        //       // isDone 프로퍼티의 값만 변경
-        //       ...todo,
-        //       isDone: !todo.isDone,
-        //     };
-        //   } else {
-        //     // 일치하지 않는다면 원래 ToDo 아이템을 반환
-        //     return todo;
-        //   }
-        //
-      ),
-    );
+    dispatch({
+      type: "UPDATE",
+      targetId: targetId,
+    });
   };
 
   const onDelete = (targetId) => {
-    // filter 메서드: 기존 배열에서 조건에 맞는 요소만 걸러내서 새로운 배열을 만듬
-    // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
-    // 즉 삭제 대상이 아닌 요소들만 필터링한다는 뜻
-    // 삭제되어야 하는 아이템만 제외한 새로운 배열을 만들어서 인수로 전달함 => 결과적으로 해당 아이템이 todos state에서 제거가 됨
-    setTodos(todos.filter((todo) => todo.id !== targetId));
+    dispatch({
+      type: "DELETE",
+      targetId: targetId,
+    });
   };
 
   return (
     <div className="App">
-      <Exam />
-      {/* <Header />
+      <Header />
       <Editor onCreate={onCreate} />
       <List
         todos={todos}
         onUpdate={onUpdate}
         onDelete={onDelete}
-      /> */}
+      />
     </div>
   );
 }
