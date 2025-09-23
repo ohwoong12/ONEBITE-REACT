@@ -1,0 +1,15 @@
+.App {
+  /* 넓이 지정 후 요소 화면 가운데로 배치 */
+  width: 500px;
+  margin: 0 auto;
+  /* App이라는 className을 갖는 요소 밑에 있는 자식 요소들의 배치를 좀 더 유연하게 할 수 있도록 하는 속성 */
+  display: flex;
+  /* 세로로 요소 배치 */
+  flex-direction: column;
+  /* 
+    요소들의 간격 조정
+     gap 속성은 display가 flex로 되어있을때만 가능
+  */
+  gap: 10px;
+}
+
