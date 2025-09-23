@@ -2,7 +2,7 @@ import "./List.css";
 import ToDoItem from "./ToDoItem";
 import { useState } from "react";
 
-const List = ({ todos }) => {
+const List = ({ todos, onUpdate }) => {
   const [search, setSearch] = useState("");
 
   // 매개변수로 이벤트 객체를 받아서 setSearch를 호출
@@ -15,6 +15,7 @@ const List = ({ todos }) => {
       return todos;
     } else {
       return todos.filter((todo) =>
+        // 소문자로 변환 후 검색한 내용만 필터링
         todo.content
           .toLowerCase()
           .includes(search.toLowerCase()),
@@ -34,7 +35,13 @@ const List = ({ todos }) => {
       />
       <div className="todos_wrapper">
         {filteredTodos.map((todo) => {
-          return <ToDoItem key={todo.id} {...todo} />;
+          return (
+            <ToDoItem
+              key={todo.id}
+              {...todo}
+              onUpdate={onUpdate}
+            />
+          );
         })}
       </div>
     </div>
