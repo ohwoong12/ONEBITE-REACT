@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import List from "./components/List";
-import { useRef, useReducer } from "react";
+import { useRef, useReducer, useCallback } from "react";
 
 // 모조 데이터 선언
 const mockData = [
@@ -52,7 +52,7 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     dispatch({
       type: "CREATE",
       // 새롭게 생성할 ToDo 아이템을 객체로 삽입
@@ -63,21 +63,21 @@ function App() {
         date: new Date().getTime(),
       },
     });
-  };
+  }, []);
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: "UPDATE",
       targetId: targetId,
     });
-  };
+  }, []);
 
-  const onDelete = (targetId) => {
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: "DELETE",
       targetId: targetId,
     });
-  };
+  }, []);
 
   return (
     <div className="App">

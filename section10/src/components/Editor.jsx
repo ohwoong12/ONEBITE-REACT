@@ -39,4 +39,4 @@ const Editor = ({ onCreate }) => {
   );
 };
 
-export default Editor;
+export default memo(Editor);
