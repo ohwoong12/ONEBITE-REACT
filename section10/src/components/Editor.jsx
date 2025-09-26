@@ -1,5 +1,5 @@
 import "./Editor.css";
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 
 const Editor = ({ onCreate }) => {
   const [content, setContent] = useState("");
