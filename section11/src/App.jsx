@@ -2,7 +2,13 @@ import "./App.css";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import List from "./components/List";
-import { useRef, useReducer, useCallback } from "react";
+import {
+  useRef,
+  useReducer,
+  useCallback,
+  createContext,
+} from "react";
+import { ToDoContext } from "./components/ToDoContext";
 
 // 모조 데이터 선언
 const mockData = [
@@ -82,12 +88,17 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate} />
-      <List
-        todos={todos}
-        onUpdate={onUpdate}
-        onDelete={onDelete}
-      />
+      <ToDoContext.Provider
+        value={{
+          todos,
+          onCreate,
+          onUpdate,
+          onDelete,
+        }}
+      >
+        <Editor />
+        <List />
+      </ToDoContext.Provider>
     </div>
   );
 }

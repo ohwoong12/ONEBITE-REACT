@@ -1,8 +1,10 @@
 import "./List.css";
 import ToDoItem from "./ToDoItem";
-import { useState, useMemo } from "react";
+import { ToDoContext } from "./ToDoContext";
+import { useState, useMemo, useContext } from "react";
 
-const List = ({ todos, onUpdate, onDelete }) => {
+const List = () => {
+  const { todos } = useContext(ToDoContext);
   const [search, setSearch] = useState("");
 
   // 매개변수로 이벤트 객체를 받아서 setSearch를 호출
@@ -92,8 +94,6 @@ const List = ({ todos, onUpdate, onDelete }) => {
             <ToDoItem
               key={todo.id}
               {...todo}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
             />
           );
         })}
