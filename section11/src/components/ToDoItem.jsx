@@ -1,9 +1,11 @@
 import "./ToDoItem.css";
 import { memo, useContext } from "react";
-import { ToDoContext } from "./ToDoContext";
+import { ToDoDispatchContext } from "./ToDoDisPatchContext";
 
 const ToDoItem = ({ id, isDone, content, date }) => {
-  const { onUpdate, onDelete } = useContext(ToDoContext);
+  const { onUpdate, onDelete } = useContext(
+    ToDoDispatchContext,
+  );
 
   // 체크박스 상태 변화를 위한 이벤트 핸들러
   const onChangeCheckBox = () => {

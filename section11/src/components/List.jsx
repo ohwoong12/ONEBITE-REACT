@@ -1,10 +1,10 @@
 import "./List.css";
 import ToDoItem from "./ToDoItem";
-import { ToDoContext } from "./ToDoContext";
 import { useState, useMemo, useContext } from "react";
+import { ToDoStateContext } from "./ToDoStateContext";
 
 const List = () => {
-  const { todos } = useContext(ToDoContext);
+  const todos = useContext(ToDoStateContext);
   const [search, setSearch] = useState("");
 
   // 매개변수로 이벤트 객체를 받아서 setSearch를 호출
@@ -90,12 +90,7 @@ const List = () => {
       />
       <div className="todos_wrapper">
         {filteredTodos.map((todo) => {
-          return (
-            <ToDoItem
-              key={todo.id}
-              {...todo}
-            />
-          );
+          return <ToDoItem key={todo.id} {...todo} />;
         })}
       </div>
     </div>
